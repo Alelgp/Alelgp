@@ -1,0 +1,883 @@
+/* --- tokens and reset --- */
+:root {
+    /* Persona Palette */
+    --bg-dark: #0f1015;
+    --bg-card: #181a20;
+    --text-main: #ffffff;
+    --text-muted: #8b8f9a;
+
+    /* accents */
+    --persona-red: #ff003c;
+    --starter-blue: #00d2ff;
+    --starter-yellow: #ffc400;
+    --border-dark: #262933;
+
+    /* typography */
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* bg & stage container */
+.bg-stripes {
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 28px,
+        rgba(255, 255, 255, 0.02) 28px,
+        rgba(255, 255, 255, 0.02) 56px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.starter-stage {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* HUD header */
+.hud-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hud-badge {
+    display: inline-block;
+    background-color: var(--persona-red);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    padding: 0.2rem 1rem;
+    transform: skewX(-10deg);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6);
+}
+
+.hud-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-top: 0.75rem;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+}
+
+.hud-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+}
+
+/* pedestal grid & buttons */
+.pedestal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.starter-pod {
+    background: var(--bg-card);
+    border: 2px solid var(--border-dark);
+    padding: 2.5rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    outline: none;
+}
+
+.starter-pod:hover,
+.starter-pod:focus-visible {
+    transform: translateY(-8px);
+    border-color: var(--text-main);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+.pod-number {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+/* pokeball graphic */
+.ball-wrapper {
+    width: 140px;
+    height: 140px;
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokeball-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* default vector fills */
+.ball-shell-bg {
+    fill: #1a1a24;
+}
+
+.ball-shell-bottom {
+    fill: #e8e8ed;
+}
+
+.ball-seam {
+    stroke: #12131a;
+    stroke-width: 5px;
+}
+
+.ball-button-outer {
+    fill: #12131a;
+}
+
+.ball-button-inner {
+    fill: #ffffff;
+    transition: fill 0.2s ease, filter 0.2s ease;
+}
+
+/* top half colors */
+.pod-red .ball-shell-top {
+    fill: var(--persona-red);
+}
+
+.pod-blue .ball-shell-top {
+    fill: var(--starter-blue);
+}
+
+.pod-yellow .ball-shell-top {
+    fill: var(--starter-yellow);
+}
+
+/* animations and hovers */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.starter-pod .ball-wrapper {
+    animation: float 3.5s ease-in-out infinite;
+}
+
+/* offset animation so balls don't bounce at same time */
+.starter-pod:nth-child(2) .ball-wrapper {
+    animation-delay: 0.5s;
+}
+.starter-pod:nth-child(3) .ball-wrapper {
+    animation-delay: 1s;
+}
+
+/* hover effects on ball release button */
+.pod-red:hover .ball-button-inner {
+    fill: var(--persona-red);
+    filter: drop-shadow(0 0 6px var(--persona-red));
+}
+
+.pod-blue:hover .ball-button-inner {
+    fill: var(--starter-blue);
+    filter: drop-shadow(0 0 6px var(--starter-blue));
+}
+
+.pod-yellow:hover .ball-button-inner {
+    fill: var(--starter-yellow);
+    filter: drop-shadow(0 0 6px var(--starter-yellow));
+}
+
+/*labels and dialogue */
+.pod-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.label-code {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+}
+
+.label-text {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 1.5px;
+    color: var(--text-main);
+}
+
+/* bottom panel */
+.inspection-panel {
+    width: 100%;
+    background: var(--bg-card);
+    border: 2px solid var(--border-dark);
+    border-left: 5px solid var(--text-main);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.panel-tag {
+    background: var(--text-main);
+    color: var(--bg-dark);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    padding: 0.15rem 0.6rem;
+    letter-spacing: 1px;
+}
+
+.panel-dialogue {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    color: var(--text-main);
+    text-transform: uppercase;
+}
+
+/* animation states */
+/* dim unselected pods */
+.starter-pod.is-dimmed {
+    opacity: 0.25;
+    filter: grayscale(80%);
+    pointer-events: none;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease;
+}
+
+/*pokeball capture, tension shake */
+@keyframes pokeball-shake {
+    0% {transform: rotate(0deg);}
+    20% {transform: rotate(-18deg) translateX(-4px);}
+    40% {transform: rotate(18deg) translateX(4px);}
+    60% {transform: rotate(-10deg) translateX(-2px);}
+    80% {transform: rotate(10deg) translateX(2px);}
+    100% {transform: rotate(0deg);}
+}
+
+/*Persona critical flash pulse */
+@keyframes core-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px #fff);}
+    50% { filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 24px var(--persona-red)); }
+}
+
+.starter-pod.is-selected {
+    pointer-events: none;
+    transform: translateY(-12px) scale(1.05);
+    z-index: 10;
+}
+
+.starter-pod.is-selected .ball-wrapper {
+    animation: pokeball-shake 0.75s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.starter-pod.is-selected .ball-button-inner {
+    fill: #fff;
+    animation: core-pulse 0.4s infinite alternate;
+}
+
+/* text upward scroll effect */
+.dialogue-window {
+    overflow: hidden;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.panel-dialogue {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    color: var(--text-main);
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: inline-block;
+    will-change: transform, opacity;
+}
+
+/* text slides up into position */
+@keyframes pokemon-text-scroll {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.panel-dialogue.scrolling-up {
+    animation: pokemon-text-scroll 0.22s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+/* personal slanted overlay */
+
+/* full wrapper hidden by default */
+.module-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/*open state */
+.module-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* semi-transparent background */
+.overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 12, 0.88);
+    backdrop-filter: blur(8px);
+}
+
+/*the angled persona content sheet */
+.overlay-sheet {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 950px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 2px solid var(--persona-red);
+    padding: 2.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 60, 0.2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateY(30px);
+    transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.module-overlay.is-active .overlay-sheet {
+    transform: translateY(0);
+}
+
+/*header layout */
+.overlay-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--border-dark);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.sheet-tag {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--persona-red);
+    font-weight: 800;
+}
+
+.sheet-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-top: 0.25rem;
+}
+
+.sheet-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/*persona close button */
+.sheet-close-btn {
+    background: var(--persona-red);
+    color: #fff;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    transform: skewX(-8deg);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sheet-close-btn:hover {
+    background-color: #fff;
+    color: var(--bg-dark);
+    transform: skewX(-8deg) scale(1.05);
+}
+
+/*projects grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+}
+
+/* individual card */
+.project-card {
+    background: #121318;
+    border: 1px solid var(--border-dark);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.project-card:hover {
+    border-color: var(--persona-red);
+    transform: translateY(-4px);
+}
+
+.card-status-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.75rem;
+}
+
+.card-id {
+    color: var(--text-muted);
+    font-weight: 800;
+}
+
+.card-status.live {
+    color: #00ff88;
+}
+
+.card-status.wip {
+    color: var(--starter-yellow);
+}
+
+.card-title {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
+}
+
+.card-summary {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
+
+ /*tech pills */
+ .tech-stack{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+ }
+
+ .tech-stack li {
+    background: #1c1e26;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.6em;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+ }
+
+ /*card action buttons */
+ .card-actions {
+    display: flex;
+    gap: 0.75rem;
+ }
+ 
+ .btn-action {
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    padding: 0.4rem 1rem;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.2s ease;
+ }
+
+ .btn-action.primary {
+    background: var(--persona-red);
+    color: #fff;
+ }
+
+ .btn-action.primary:hover {
+    background: #ff3366;
+ }
+
+ .btn-action.secondary {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-main);
+ }
+
+ .btn-action.secondary:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+
+ }
+
+ /* ==========================================================================
+   10. Module C: Item Bag & Comm Styling
+   ========================================================================== */
+
+/* Volt Yellow Variant */
+.sheet-yellow {
+  border-color: var(--starter-yellow);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 196, 0, 0.2);
+}
+
+.sheet-yellow .sheet-tag {
+  color: var(--starter-yellow);
+}
+
+.sheet-yellow .sheet-close-btn {
+  background: var(--starter-yellow);
+  color: var(--bg-dark);
+}
+
+.sheet-yellow .sheet-close-btn:hover {
+  background: #fff;
+  color: var(--bg-dark);
+}
+
+/* Bag Layout */
+.bag-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.bag-section-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 1.5px;
+  color: var(--starter-yellow);
+  margin-bottom: 1rem;
+}
+
+/* Key Item Slot */
+.item-slot {
+  background: #121318;
+  border: 1px solid var(--border-dark);
+  padding: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  
+}
+
+.item-slot:hover {
+  border-color: var(--starter-yellow);
+  transform: translateY(-3px);
+}
+
+.item-badge {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  background: var(--starter-yellow);
+  color: var(--bg-dark);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 0.15rem 0.5rem;
+}
+
+.item-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 1.5px;
+  color: var(--text-main);
+  margin-top: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.item-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 550px;
+  margin-bottom: 0.75rem;
+}
+
+.item-metadata {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.btn-download {
+  background: var(--starter-yellow);
+  color: var(--bg-dark);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.btn-download:hover {
+  background: #fff;
+}
+
+/* Comm Channels Grid */
+.comm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.comm-channel {
+  background: #121318;
+  border: 1px solid var(--border-dark);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.comm-channel:hover {
+  border-color: var(--starter-yellow);
+  background: #171922;
+  transform: translateX(4px);
+}
+
+.comm-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--starter-yellow);
+  border-radius: 50%;
+  margin-right: 1rem;
+  box-shadow: 0 0 6px var(--starter-yellow);
+}
+
+.comm-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.comm-protocol {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.comm-label {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  color: var(--text-main);
+}
+
+.comm-arrow {
+  color: var(--starter-yellow);
+  font-size: 1.3rem;
+  transition: transform 0.2s ease;
+}
+
+.comm-channel:hover .comm-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+  .item-slot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================================================
+   9. Module B: Trainer Card & Stats Styling
+   ========================================================================== */
+.sheet-blue {
+  border-color: var(--starter-blue);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 210, 255, 0.2);
+}
+
+.sheet-blue .sheet-tag {
+  color: var(--starter-blue);
+}
+
+.sheet-blue .sheet-close-btn {
+  background: var(--starter-blue);
+  color: var(--bg-dark);
+}
+
+.sheet-blue .sheet-close-btn:hover {
+  background: #fff;
+  color: var(--bg-dark);
+}
+
+.trainer-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .trainer-layout {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.dossier-card {
+  background: #121318;
+  border: 1px solid var(--border-dark);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.dossier-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.dossier-meta:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.meta-label {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+
+.meta-val {
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: var(--text-main);
+}
+
+.bio-heading,
+.stats-heading {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 1.5px;
+  color: var(--starter-blue);
+  margin-bottom: 0.75rem;
+}
+
+.dossier-bio p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stat-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.stat-name {
+  color: var(--text-main);
+}
+
+.stat-val {
+  color: var(--starter-blue);
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.stat-track {
+  width: 100%;
+  height: 12px;
+  background: #15161c;
+  border: 1px solid var(--border-dark);
+  padding: 2px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.stat-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(0, 210, 255, 0.6), var(--starter-blue));
+  transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.module-overlay.is-active .stat-bar {
+  width: var(--stat-level);
+}

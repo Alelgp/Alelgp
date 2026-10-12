@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ale's Portfolio</title>
+
+    <!-- google fonts: Bebas Neue & Outfit-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- link to your CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- background elements -->
+     <div class="bg-stripes" aria-hidden="true"></div>
+     <div class="bg-noise" aria-hidden="true"></div>
+     <main class="starter-stage">
+        <!--Top HUD-->
+            <header class="hud-header">
+                <div class="hud-badge">PHASE 01 // SELECTION</div>
+                <h1 class="hud-title">CHOOSE YOUR PROTOCOL</h1>
+                <p class="hud-subtitle">Select a drive to initiate data extraction.</p>
+            </header>
+
+            <!-- pedestal container-->
+             <section class="pedestal-grid" aria-label="Portfolio Navvigation Modules">
+                    <!-- starter 001-->
+                    <button class="starter-pod pod-red" data-module="projects" type="button">
+                        <span class="pod-number">NO. 001</span>
+                        <!-- pokeball svg goes here -->
+                        <div class="ball-wrapper">
+                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
+                                <!-- bg base circle-->
+                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
+                                <!-- top half circle -->
+                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
+                                <!-- bottom half circle -->
+                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
+                                <!--dividing seam-->
+                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
+                                <!-- center button ring-->
+                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
+                                <!-- push button-->
+                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
+                            </svg>
+                        </div>
+                        <div class="pod-label">
+                            <span class="label-code">MODULE_A</span>
+                            <span class="label-text">PROJECTS</span>
+                        </div>
+                    </button>
+                    <!-- Starter 002 -->
+                    <button class="starter-pod pod-blue" data-module="profile" type="button">
+                        <span class="pod-number">NO. 002</span>
+                        <!-- pokeball svg goes here -->
+                        <div class="ball-wrapper">
+                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
+                                <!-- bg base circle-->
+                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
+                                <!-- top half circle -->
+                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
+                                <!-- bottom half circle -->
+                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
+                                <!--dividing seam-->
+                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
+                                <!-- center button ring-->
+                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
+                                <!-- push button-->
+                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
+                            </svg>
+                        </div>
+                        <div class="pod-label">
+                            <span class="label-code">MODULE_B</span>
+                            <span class="label-text">TRAINER STATS</span>
+                        </div>
+                    </button>
+                    <!-- Starter 003 -->
+                    <button class="starter-pod pod-yellow" data-module="contact" type="button">
+                        <span class="pod-number">NO. 003</span>
+                        <!-- pokeball svg goes here -->
+                        <div class="ball-wrapper">
+                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
+                                <!-- bg base circle-->
+                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
+                                <!-- top half circle -->
+                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
+                                <!-- bottom half circle -->
+                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
+                                <!--dividing seam-->
+                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
+                                <!-- center button ring-->
+                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
+                                <!-- push button-->
+                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
+                            </svg>
+                        </div>
+                        <div class="pod-label">
+                            <span class="label-code">MODULE_C</span>
+                            <span class="label-text">BAG &amp; COMM</span>
+                        </div>
+                    </button>
+             </section>
+             <!-- RPG dialogue box  -->
+             <footer class="inspection-panel">
+                <div class="panel-tag">STATUS</div>
+                <div class="dialogue-window">
+                    <div class="panel-dialogue" id="dialogue-text">AWAITING INPUT... HOVER OVER A DRIVE FOR SPECIFICATIONS.</div>
+                </div>
+             </footer>
+     </main>
+     <!-- Module A Page-->
+     <section class="module-overlay" id="modal-projects" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projects-title">
+        <div class="overlay-backdrop"></div>
+        <div class="overlay-sheet">
+            <!-- modal header bar-->
+            <header class="overlay-header">
+                <div class="header-left">
+                    <span class="sheet-tag">ARCHIVE // NO. 001</span>
+                    <h2 class="sheet-title" id="projects-title">BATTLE ARCHIVE</h2>
+                </div>
+                <!-- Close / Return Button-->
+                <button class="sheet-close-btn" type="button" aria-label="Close Battle Archive">
+                    <span class="btn-text">RETURN [ESC]</span>
+                </button>
+            </header>
+
+            <p class="sheet-desc">Verified operational builds, system architectures, and live deployments.</p>
+
+            <!-- Project Cards grid-->
+            <div class="projects-grid"></div>
+
+            <!--project card 01-->
+            <article class="project-card">
+                <div class="card-status-bar">
+                    <span class="card-id">ENTRY_01</span>
+                    <span class="card-status-bar">STATUS: DEPLOYED</span>
+                </div>
+                <h3 class="card-title">PROJECT ALPHA</h3>
+                <p class="card-summary">
+                    A high-performance interactive web application built with a modern frontend pipeline, responsive state machines, and real-time DOM rendering.
+                </p>
+                <ul class="tech-stack" aria-label="Technologies used">
+                    <li>JavaScript</li>
+                    <li>HTML / CSS3</li>
+                    <li>REST API</li>
+                </ul>
+                <div class="card-actions">
+                    <a href="#" class="btn-action primary" target="_blank" rel="noopener noreferrer">LAUNCH DEMO</a>
+                    <a href="#" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
+                </div>
+            </article>
+
+            <!--project card 02-->
+            <article class="project-card">
+                <div class="card-status-bar">
+                    <span class="card-id">ENTRY_02</span>
+                    <span class="card-status wip">STATUS: ACTIVE COMPILATION</span>
+                </div>
+                <h3 class="card-title">CORE PIPELINE TOOL</h3>
+                <p class="card-summary">
+                    Backend data processing utility and automation script engine designed for high-throughput batch operations and structured memory management.
+                </p>
+                <ul class="tech-stack" aria-label="Technologies used">
+                    <li>Python</li>
+                    <li>C++</li>
+                    <li>AUTOMATION</li>
+                </ul>
+                <div class="card-actions">
+                    <a href="#" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
+                </div>
+            </article>
+        </div>
+     </section>
+     <!-- module b: trainer card-->
+     <!-- ==========================================================================
+       Module B: Trainer Card (About & Skills Modal)
+       ========================================================================== -->
+  <section class="module-overlay" id="modal-profile" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="profile-title">
+    <div class="overlay-backdrop"></div>
+    
+    <!-- Note: "sheet-blue" MUST be included here alongside "overlay-sheet" -->
+    <div class="overlay-sheet sheet-blue">
+      <!-- Modal Header Bar -->
+      <header class="overlay-header">
+        <div class="header-left">
+          <span class="sheet-tag">DOSSIER // NO. 002</span>
+          <h2 class="sheet-title" id="profile-title">TRAINER CARD</h2>
+        </div>
+        <button class="sheet-close-btn" type="button" aria-label="Close Trainer Card">
+          <span class="btn-text">RETURN [ESC]</span>
+        </button>
+      </header>
+
+      <p class="sheet-desc">Operator profile, core competencies, and foundational skill parameters.</p>
+
+      <!-- Main Two-Column Layout -->
+      <div class="trainer-layout">
+        
+        <!-- Column 1: Operator Dossier -->
+        <div class="trainer-dossier">
+          <div class="dossier-card">
+            <div class="dossier-meta">
+              <span class="meta-label">DEV NAME</span>
+              <span class="meta-val">ALE CARDENAS</span>
+            </div>
+            <div class="dossier-meta">
+              <span class="meta-label">CLASS</span>
+              <span class="meta-val">SOFTWARE DEVELOPER</span>
+            </div>
+            <div class="dossier-meta">
+              <span class="meta-label">SPECIALTY</span>
+              <span class="meta-val">FULL-STACK &amp; SYSTEMS</span>
+            </div>
+          </div>
+
+          <div class="dossier-bio">
+            <h4 class="bio-heading">BACKGROUND PROTOCOL</h4>
+            <p>
+              Undergraduate developer focused on building clean web applications, performant software tools, and interactive digital interfaces. Combines structured logic with thoughtful UI design.
+            </p>
+          </div>
+        </div>
+
+        <!-- Column 2: RPG Base Stats & Visual Meters -->
+        <div class="trainer-stats">
+          <h4 class="stats-heading">BASE ATTRIBUTES // PROFICIENCIES</h4>
+
+          <div class="stat-group">
+            
+            <!-- JavaScript (LV. 6 / 20 = 30%) -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-name">JAVASCRIPT / WEB</span>
+                <span class="stat-val">LV. 6</span>
+              </div>
+              <div class="stat-track">
+                <div class="stat-bar" style="--stat-level: 6%;"></div>
+              </div>
+            </div>
+
+            <!-- Python (LV. 10 / 20 = 50%) -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-name">PYTHON / AUTOMATION</span>
+                <span class="stat-val">LV. 5</span>
+              </div>
+              <div class="stat-track">
+                <div class="stat-bar" style="--stat-level: 5%;"></div>
+              </div>
+            </div>
+
+            <!-- C++ (LV. 5 / 20 = 25%) -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-name">C++ / CORE LOGIC</span>
+                <span class="stat-val">LV. 5</span>
+              </div>
+              <div class="stat-track">
+                <div class="stat-bar" style="--stat-level: 5%;"></div>
+              </div>
+            </div>
+
+            <!-- UI/UX (LV. 15 / 20 = 75%) -->
+            <div class="stat-row">
+              <div class="stat-info">
+                <span class="stat-name">UI / UX &amp; VISUAL DESIGN</span>
+                <span class="stat-val">LV. 10</span>
+              </div>
+              <div class="stat-track">
+                <div class="stat-bar" style="--stat-level: 10%;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+     <!-- ==========================================================================
+       Module C: Item Bag & Comm (Resume & Contact Modal)
+       ========================================================================== -->
+  <section class="module-overlay" id="modal-contact" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="overlay-backdrop"></div>
+    
+    <div class="overlay-sheet sheet-yellow">
+      <!-- Modal Header Bar -->
+      <header class="overlay-header">
+        <div class="header-left">
+          <span class="sheet-tag">INVENTORY // NO. 003</span>
+          <h2 class="sheet-title" id="contact-title">ITEM BAG &amp; COMM</h2>
+        </div>
+        <button class="sheet-close-btn" type="button" aria-label="Close Item Bag">
+          <span class="btn-text">RETURN [ESC]</span>
+        </button>
+      </header>
+
+      <p class="sheet-desc">Acquire mission documentation and initialize outbound transmission relays.</p>
+
+      <!-- Inventory Grid -->
+      <div class="bag-layout">
+        
+        <!-- Section 1: Key Items (Resume Download) -->
+        <div class="bag-section">
+          <h4 class="bag-section-title">KEY ITEMS // CREDENTIALS</h4>
+          
+          <div class="item-slot key-item">
+            <div class="item-badge">KEY ITEM</div>
+            <div class="item-details">
+              <h5 class="item-name">OPERATOR DOSSIER [RESUME.PDF]</h5>
+              <p class="item-description">
+                Comprehensive record of technical coursework, project architectures, system proficiencies, and academic milestones.
+              </p>
+              <div class="item-metadata">
+                <span>FORMAT: PDF</span>
+                <span>SECURITY: ENCRYPTED</span>
+              </div>
+            </div>
+            <!-- Replace 'resume.pdf' with your actual resume file path later -->
+            <a href="Alejandro_Cardenas_Resume.pdf" class="btn-action primary btn-download" download="Developer_Resume.pdf">
+              ACQUIRE ITEM
+            </a>
+          </div>
+        </div>
+
+        <!-- Section 2: Comm Relays (Contact Channels) -->
+        <div class="bag-section">
+          <h4 class="bag-section-title">COMM RELAYS // DIRECT CHANNELS</h4>
+          
+          <div class="comm-grid">
+            <!-- Email Transmission -->
+            <a href="mailto:Ale_Cardenas444@outlook.com" class="comm-channel">
+              <div class="comm-indicator"></div>
+              <div class="comm-info">
+                <span class="comm-protocol">PROTOCOL // SMTP</span>
+                <span class="comm-label">DIRECT DISPATCH (EMAIL)</span>
+              </div>
+              <span class="comm-arrow">&rarr;</span>
+            </a>
+
+            <!-- GitHub Archive -->
+            <a href="https://github.com/Alelgp" target="_blank" rel="noopener noreferrer" class="comm-channel">
+              <div class="comm-indicator"></div>
+              <div class="comm-info">
+                <span class="comm-protocol">NETWORK // REPOSITORY</span>
+                <span class="comm-label">GITHUB PROFILE</span>
+              </div>
+              <span class="comm-arrow">&rarr;</span>
+            </a>
+
+            <!-- LinkedIn Relay -->
+            <a href="https://www.linkedin.com/in/alejandro-cardenas-057587342/" target="_blank" rel="noopener noreferrer" class="comm-channel">
+              <div class="comm-indicator"></div>
+              <div class="comm-info">
+                <span class="comm-protocol">NETWORK // PROFESSIONAL</span>
+                <span class="comm-label">LINKEDIN NETWORK</span>
+              </div>
+              <span class="comm-arrow">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+     
+     <!-- script last so html loads first -->
+     <script src="script.js"></script>
+
+</body>
+</html>
