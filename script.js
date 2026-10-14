@@ -168,23 +168,23 @@ const dialogueDisplay = document.getElementById('dialogue-text');
 const pods = document.querySelectorAll('.starter-pod');
 
 // idle text when nothing is hovered
-const IDLE_PROMPT = "AWAITING INPUT.. HOVER OVER A DRIVE FOR SPECIFICATION."
+const IDLE_PROMPT = "AWAITING INPUT... HOVER OVER A BALL FOR MORE INFO."
 
 // mod data dict
 const moduleData = {
     projects: {
-        title: "MODULE A",
-        description: "Access deployment registry: full-stack applications, engine builds, and source code.",
+        title: "PROJECTS",
+        description: "Access project library and source code.",
         accentColor: "var(--persona-red)"
     },
     profile: {
-        title: "MODULE B",
-        description: "Display operator dossier: base stats, engineering core disciplines, and skill proficiencies.",
+        title: "SKILL MEASUREMENT",
+        description: "Display my skills and proficiencies as a novice developer.",
         accentColor: "var(--starter-blue)"
     },
     contact: {
-        title: "MODULE C",
-        description: "Initialize transmission relay: direct contact channels and cryptographic resume retrieval.",
+        title: "ABOUT ME",
+        description: "Direct contact channels and resume download.",
         accentColor: "var(--starter-yellow)"
     }
 };
