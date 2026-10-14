@@ -1,22 +1,52 @@
 // ==========================================================================
-// 0. Native Web Audio Engine (Procedural 8-Bit & UI FX)
+// 0. Mobile-Hardened Web Audio Engine
 // ==========================================================================
 
 let audioCtx = null;
 
 /**
- * Returns an active AudioContext instance, resuming suspended context on first user interaction.
+ * Returns an active AudioContext instance.
  */
 function getAudioContext() {
   if (!audioCtx) {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     audioCtx = new AudioContextClass();
   }
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
   return audioCtx;
 }
+
+/**
+ * Robust mobile audio unlocker:
+ * 1. Resumes context on touch.
+ * 2. Fires a silent 1-sample buffer to force iOS WebKit speaker output.
+ * 3. Removes listeners once successfully in the 'running' state.
+ */
+function unlockMobileAudio() {
+  const ctx = getAudioContext();
+
+  if (ctx.state === 'suspended') {
+    ctx.resume();
+  }
+
+  // Play a silent 1-sample buffer (standard iOS WebKit hardware wake-up)
+  const buffer = ctx.createBuffer(1, 1, 22050);
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
+  source.connect(ctx.destination);
+  source.start(0);
+
+  // Once confirmed running, remove the global touch/pointer listeners
+  if (ctx.state === 'running') {
+    ['touchstart', 'touchend', 'pointerdown', 'keydown'].forEach((eventName) => {
+      window.removeEventListener(eventName, unlockMobileAudio);
+    });
+  }
+}
+
+// Attach listeners immediately when the script executes
+['touchstart', 'touchend', 'pointerdown', 'keydown'].forEach((eventName) => {
+  window.addEventListener(eventName, unlockMobileAudio, { passive: true });
+});
 
 /**
  * Short high-frequency tick for hover interactions (Game Boy style blip)
@@ -24,6 +54,11 @@ function getAudioContext() {
 function playHoverSound() {
   try {
     const ctx = getAudioContext();
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
@@ -51,6 +86,11 @@ function playHoverSound() {
 function playCardHoverSound() {
   try {
     const ctx = getAudioContext();
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
@@ -81,6 +121,11 @@ function playCardHoverSound() {
 function playLinkConfirmSound() {
   try {
     const ctx = getAudioContext();
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+
     // Notes: G5 (783.99 Hz) to high C6 (1046.50 Hz)
     const tones = [783.99, 1046.50];
 
@@ -113,6 +158,11 @@ function playLinkConfirmSound() {
 function playConfirmSound() {
   try {
     const ctx = getAudioContext();
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+
     const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 (Major triad fanfare)
 
     notes.forEach((freq, idx) => {
@@ -143,6 +193,11 @@ function playConfirmSound() {
 function playCloseSound() {
   try {
     const ctx = getAudioContext();
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+    
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
