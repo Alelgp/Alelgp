@@ -1,188 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ale's Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ale's Portfolio</title>
 
-    <!-- google fonts: Bebas Neue & Outfit-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Anton & Bebas Neue for P5 cutouts, Permanent Marker for callouts, Outfit for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Outfit:wght@400;600;800;900&family=Permanent+Marker&display=swap" rel="stylesheet">
 
-    <!-- link to your CSS file -->
-    <link rel="stylesheet" href="style.css">
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- background elements -->
-     <div class="bg-stripes" aria-hidden="true"></div>
-     <div class="bg-noise" aria-hidden="true"></div>
-     <main class="starter-stage">
-        <!--Top HUD-->
-            <header class="hud-header">
-                <div class="hud-badge">PHASE 01 // SELECTION</div>
-                <h1 class="hud-title">CHOOSE YOUR DEV BALL</h1>
-                <p class="hud-subtitle">Select a ball to learn more.</p>
-            </header>
 
-            <!-- pedestal container-->
-             <section class="pedestal-grid" aria-label="Portfolio Navigation Modules">
-                    <!-- starter 001-->
-                    <button class="starter-pod pod-red" data-module="projects" type="button">
-                        <span class="pod-number">NO. 001</span>
-                        <!-- pokeball svg goes here -->
-                        <div class="ball-wrapper">
-                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
-                                <!-- bg base circle-->
-                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
-                                <!-- top half circle -->
-                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
-                                <!-- bottom half circle -->
-                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
-                                <!--dividing seam-->
-                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
-                                <!-- center button ring-->
-                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
-                                <!-- push button-->
-                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
-                            </svg>
-                        </div>
-                        <div class="pod-label">
-                            <span class="label-code">WIP</span>
-                            <span class="label-text">PROJECTS</span>
-                        </div>
-                    </button>
-                    <!-- Starter 002 -->
-                    <button class="starter-pod pod-blue" data-module="profile" type="button">
-                        <span class="pod-number">NO. 002</span>
-                        <!-- pokeball svg goes here -->
-                        <div class="ball-wrapper">
-                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
-                                <!-- bg base circle-->
-                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
-                                <!-- top half circle -->
-                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
-                                <!-- bottom half circle -->
-                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
-                                <!--dividing seam-->
-                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
-                                <!-- center button ring-->
-                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
-                                <!-- push button-->
-                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
-                            </svg>
-                        </div>
-                        <div class="pod-label">
-                            <span class="label-code">NOVICE</span>
-                            <span class="label-text">PROFICIENCY</span>
-                        </div>
-                    </button>
-                    <!-- Starter 003 -->
-                    <button class="starter-pod pod-yellow" data-module="contact" type="button">
-                        <span class="pod-number">NO. 003</span>
-                        <!-- pokeball svg goes here -->
-                        <div class="ball-wrapper">
-                            <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
-                                <!-- bg base circle-->
-                                <circle cx="50" cy="50" r="48" class="ball-shell-bg"/>
-                                <!-- top half circle -->
-                                <path d="M 2, 50 A 48,48 0 0, 1 98, 50 Z" class="ball-shell-top"/>
-                                <!-- bottom half circle -->
-                                <path d="M 2, 50 A 48,48 0 0,0 98,50 Z" class="ball-shell-bottom"/>
-                                <!--dividing seam-->
-                                <line x1="2" y1="50" x3="98" y2="50" class="ball-seam"/>
-                                <!-- center button ring-->
-                                <circle cx="50" cy="50" r="14" class="ball-button-outer"/>
-                                <!-- push button-->
-                                <circle cx="50" cy="50" r="7" class="ball-button-inner"/>
-                            </svg>
-                        </div>
-                        <div class="pod-label">
-                            <span class="label-code">ABOUT ME</span>
-                            <span class="label-text">RESUME &amp; COMMUNICATION</span>
-                        </div>
-                    </button>
-             </section>
-             <!-- RPG dialogue box  -->
-             <footer class="inspection-panel">
-                <div class="panel-tag">STATUS</div>
-                <div class="dialogue-window">
-                    <div class="panel-dialogue" id="dialogue-text">AWAITING INPUT... HOVER OVER A BALL FOR MORE INFO.</div>
-                </div>
-             </footer>
-     </main>
-     <!-- Module A Page-->
-     <section class="module-overlay" id="modal-projects" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projects-title">
-        <div class="overlay-backdrop"></div>
-        <div class="overlay-sheet">
-            <!-- modal header bar-->
-            <header class="overlay-header">
-                <div class="header-left">
-                    <span class="sheet-tag">PROJECTS // NO. 001</span>
-                    <h2 class="sheet-title" id="projects-title">PROJECT LIBRARY</h2>
-                </div>
-                <!-- Close / Return Button-->
-                <button class="sheet-close-btn" type="button" aria-label="Close Project Library">
-                    <span class="btn-text">RETURN [ESC]</span>
-                </button>
-            </header>
+  <!-- 1. Persona 5 Rebellion Background Engine -->
+  <div class="p5-bg" aria-hidden="true">
+    <div class="p5-halftone"></div>
+    <div class="p5-crimson-slash"></div>
+    <div class="p5-secondary-slash"></div>
+    <!-- Rotating Concentric Phantom Star -->
+    <svg class="p5-bg-star" viewBox="0 0 200 200">
+      <polygon class="star-outer" points="100,2 124,70 198,70 138,114 160,188 100,144 40,188 62,114 2,70 76,70" />
+      <polygon class="star-mid" points="100,18 119,75 178,75 130,110 148,168 100,134 52,168 70,110 22,75 81,75" />
+      <polygon class="star-inner" points="100,35 113,80 158,80 122,106 135,150 100,124 65,150 78,106 42,80 87,80" />
+    </svg>
+  </div>
 
-            <p class="sheet-desc">This is my first project. No other project is linked in this sheet. It's all placeholder content.</p>
+  <!-- 2. "All-Out Attack" Screen-Slash Transition Overlay -->
+  <div class="slash-transition" id="slash-overlay" aria-hidden="true">
+    <div class="slash-blade blade-top"></div>
+    <div class="slash-blade blade-mid">
+      <span class="slash-impact-text" id="slash-text">SHOWTIME!</span>
+    </div>
+    <div class="slash-blade blade-bottom"></div>
+  </div>
 
-            <!-- Project Cards grid-->
-            <div class="projects-grid"></div>
+  <!-- 3. Main Viewport Stage -->
+  <main class="starter-stage">
+    
+    <!-- Top HUD with Ransom-Note Cutout Title -->
+    <header class="hud-header">
+      <div class="hud-tag-wrap">
+        <span class="hud-badge">PHASE 01 // SELECTION</span>
+      </div>
+      <h1 class="hud-title ransom-text" data-ransom="CHOOSE YOUR DEV BALL">CHOOSE YOUR DEV BALL</h1>
+      <p class="hud-subtitle">Select a ball to learn more.</p>
+    </header>
 
-            <!--project card 01-->
-            <article class="project-card">
-                <div class="card-status-bar">
-                    <span class="card-id">ENTRY_01</span>
-                    <span class="card-status-bar">STATUS: COMPLETE</span>
-                </div>
-                <h3 class="card-title">PROJECT PORTFOLIO</h3>
-                <p class="card-summary">
-                    An interactive web page built to showcase my portfolio, resume, projects, and my current skills. This will be a project that will grow with my development journey.
-                </p>
-                <ul class="tech-stack" aria-label="Technologies used">
-                    <li>JavaScript</li>
-                    <li>HTML</li>
-                    <li>CSS3</li>
-                </ul>
-                <div class="card-actions">
-                    <a href="https://alelgp.github.io/Alelgp/" class="btn-action primary" target="_blank" rel="noopener noreferrer">LAUNCH</a>
-                    <a href="https://github.com/Alelgp/Alelgp" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
-                </div>
-            </article>
+    <!-- Pedestal Container & Dynamic Flying Reticle -->
+    <section class="pedestal-grid" id="pedestal-grid" aria-label="Portfolio Navigation Modules">
+      
+      <!-- Flying Target Reticle (Physically tracks behind hovered Poké Ball) -->
+      <div id="p5-reticle" class="p5-reticle" aria-hidden="true">
+        <div class="reticle-shard-back"></div>
+        <div class="reticle-shard-front"></div>
+      </div>
 
-            <!--project card 02-->
-            <article class="project-card">
-                <div class="card-status-bar">
-                    <span class="card-id">ENTRY_02</span>
-                    <span class="card-status wip">STATUS: WORK IN PROGRESS</span>
-                </div>
-                <h3 class="card-title">SECOND PROJECT</h3>
-                <p class="card-summary">
-                    Placeholder content for the second project. Placeholder content for the second project. Placeholder content for the second project. Placeholder content for the second project.
-                    Placeholder content for the second project. Placeholder content for the second project.
-                </p>
-                <ul class="tech-stack" aria-label="Technologies used">
-                    <li>Python</li>
-                    <li>C++</li>
-                    <li>AUTOMATION</li>
-                </ul>
-                <div class="card-actions">
-                    <a href="#" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
-                </div>
-            </article>
+      <!-- Starter 001: Projects -->
+      <button class="starter-pod pod-red" data-module="projects" data-impact="SHOWTIME!" type="button">
+        <div class="pod-shard" aria-hidden="true"></div>
+        <span class="pod-number">NO. 001</span>
+        <span class="pod-callout">ATTACK // CODE</span>
+
+        <div class="ball-wrapper">
+          <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Projects Poke Ball">
+            <circle cx="56" cy="56" r="46" class="ball-ink-shadow" />
+            <circle cx="50" cy="50" r="46" class="ball-shell-bg" />
+            <path d="M 4,50 A 46,46 0 0,1 96,50 Z" class="ball-shell-top" />
+            <path d="M 4,50 A 46,46 0 0,0 96,50 Z" class="ball-shell-bottom" />
+            <path d="M 18,30 A 38,38 0 0,1 48,12" class="ball-glint" />
+            <line x1="2" y1="50" x2="98" y2="50" class="ball-seam" />
+            <circle cx="50" cy="50" r="15" class="ball-button-outer" />
+            <circle cx="50" cy="50" r="8" class="ball-button-inner" />
+          </svg>
         </div>
-     </section>
-     <!-- module b: trainer card-->
-     <!-- ==========================================================================
-       Module B: Trainer Card (About & Skills Modal)
+
+        <div class="pod-label">
+          <span class="label-code">WIP</span>
+          <span class="label-text">PROJECTS</span>
+        </div>
+      </button>
+
+      <!-- Starter 002: Proficiency -->
+      <button class="starter-pod pod-blue" data-module="profile" data-impact="PERSONA!" type="button">
+        <div class="pod-shard" aria-hidden="true"></div>
+        <span class="pod-number">NO. 002</span>
+        <span class="pod-callout">STATS // BIO</span>
+
+        <div class="ball-wrapper">
+          <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Proficiency Poke Ball">
+            <circle cx="56" cy="56" r="46" class="ball-ink-shadow" />
+            <circle cx="50" cy="50" r="46" class="ball-shell-bg" />
+            <path d="M 4,50 A 46,46 0 0,1 96,50 Z" class="ball-shell-top" />
+            <path d="M 4,50 A 46,46 0 0,0 96,50 Z" class="ball-shell-bottom" />
+            <path d="M 18,30 A 38,38 0 0,1 48,12" class="ball-glint" />
+            <line x1="2" y1="50" x2="98" y2="50" class="ball-seam" />
+            <circle cx="50" cy="50" r="15" class="ball-button-outer" />
+            <circle cx="50" cy="50" r="8" class="ball-button-inner" />
+          </svg>
+        </div>
+
+        <div class="pod-label">
+          <span class="label-code">NOVICE</span>
+          <span class="label-text">PROFICIENCY</span>
+        </div>
+      </button>
+
+      <!-- Starter 003: Resume & Communication -->
+      <button class="starter-pod pod-yellow" data-module="contact" data-impact="HOLD UP!" type="button">
+        <div class="pod-shard" aria-hidden="true"></div>
+        <span class="pod-number">NO. 003</span>
+        <span class="pod-callout">ITEMS // LINK</span>
+
+        <div class="ball-wrapper">
+          <svg class="pokeball-svg" viewBox="0 0 100 100" aria-label="Resume and Communication Poke Ball">
+            <circle cx="56" cy="56" r="46" class="ball-ink-shadow" />
+            <circle cx="50" cy="50" r="46" class="ball-shell-bg" />
+            <path d="M 4,50 A 46,46 0 0,1 96,50 Z" class="ball-shell-top" />
+            <path d="M 4,50 A 46,46 0 0,0 96,50 Z" class="ball-shell-bottom" />
+            <path d="M 18,30 A 38,38 0 0,1 48,12" class="ball-glint" />
+            <line x1="2" y1="50" x2="98" y2="50" class="ball-seam" />
+            <circle cx="50" cy="50" r="15" class="ball-button-outer" />
+            <circle cx="50" cy="50" r="8" class="ball-button-inner" />
+          </svg>
+        </div>
+
+        <div class="pod-label">
+          <span class="label-code">ABOUT ME</span>
+          <span class="label-text">RESUME &amp; COMMUNICATION</span>
+        </div>
+      </button>
+
+    </section>
+
+    <!-- RPG Dialogue Box -->
+    <footer class="inspection-panel">
+      <div class="panel-tag">STATUS</div>
+      <div class="dialogue-window">
+        <div class="panel-dialogue" id="dialogue-text">AWAITING INPUT... HOVER OVER A BALL FOR MORE INFO.</div>
+      </div>
+      <div class="p5-next-cursor" aria-hidden="true">&#9660;</div>
+    </footer>
+
+  </main>
+
+  <!-- ==========================================================================
+       Module A: Project Library Modal
+       ========================================================================== -->
+  <section class="module-overlay" id="modal-projects" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="projects-title">
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-sheet sheet-red">
+      <!-- Modal Header Bar -->
+      <header class="overlay-header">
+        <div class="header-left">
+          <span class="sheet-tag">PROJECTS // NO. 001</span>
+          <h2 class="sheet-title" id="projects-title">PROJECT LIBRARY</h2>
+        </div>
+        <!-- Close / Return Button -->
+        <button class="sheet-close-btn" type="button" aria-label="Close Project Library">
+          <span class="btn-text">RETURN [ESC]</span>
+        </button>
+      </header>
+
+      <p class="sheet-desc">This is my first project. No other project is linked in this sheet. It's all placeholder content.</p>
+
+      <!-- Project Cards Grid -->
+      <div class="projects-grid">
+
+        <!-- Project Card 01 -->
+        <article class="project-card">
+          <div class="card-status-bar">
+            <span class="card-id">ENTRY_01</span>
+            <span class="card-status live">STATUS: COMPLETE</span>
+          </div>
+          <h3 class="card-title">PROJECT PORTFOLIO</h3>
+          <p class="card-summary">
+            An interactive web page built to showcase my portfolio, resume, projects, and my current skills. This will be a project that will grow with my development journey.
+          </p>
+          <ul class="tech-stack" aria-label="Technologies used">
+            <li>JavaScript</li>
+            <li>HTML</li>
+            <li>CSS3</li>
+          </ul>
+          <div class="card-actions">
+            <a href="https://alelgp.github.io/Alelgp/" class="btn-action primary" target="_blank" rel="noopener noreferrer">LAUNCH</a>
+            <a href="https://github.com/Alelgp/Alelgp" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
+          </div>
+        </article>
+
+        <!-- Project Card 02 -->
+        <article class="project-card">
+          <div class="card-status-bar">
+            <span class="card-id">ENTRY_02</span>
+            <span class="card-status wip">STATUS: WORK IN PROGRESS</span>
+          </div>
+          <h3 class="card-title">SECOND PROJECT</h3>
+          <p class="card-summary">
+            Placeholder content for the second project. Placeholder content for the second project. Placeholder content for the second project. Placeholder content for the second project.
+            Placeholder content for the second project. Placeholder content for the second project.
+          </p>
+          <ul class="tech-stack" aria-label="Technologies used">
+            <li>Python</li>
+            <li>C++</li>
+            <li>AUTOMATION</li>
+          </ul>
+          <div class="card-actions">
+            <a href="#" class="btn-action secondary" target="_blank" rel="noopener noreferrer">SOURCE REPO</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       Module B: Dev Card (About & Skills Modal)
        ========================================================================== -->
   <section class="module-overlay" id="modal-profile" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="profile-title">
     <div class="overlay-backdrop"></div>
     
-    <!-- Note: "sheet-blue" MUST be included here alongside "overlay-sheet" -->
     <div class="overlay-sheet sheet-blue">
       <!-- Modal Header Bar -->
       <header class="overlay-header">
@@ -232,7 +270,7 @@
 
           <div class="stat-group">
             
-            <!-- JavaScript (LV. 6 / 20 = 30%) -->
+            <!-- JavaScript (LV. 6) -->
             <div class="stat-row">
               <div class="stat-info">
                 <span class="stat-name">JAVASCRIPT / WEB</span>
@@ -243,7 +281,7 @@
               </div>
             </div>
 
-            <!-- Python (LV. 10 / 20 = 50%) -->
+            <!-- Python (LV. 5) -->
             <div class="stat-row">
               <div class="stat-info">
                 <span class="stat-name">PYTHON / AUTOMATION</span>
@@ -254,7 +292,7 @@
               </div>
             </div>
 
-            <!-- C++ (LV. 5 / 20 = 25%) -->
+            <!-- C++ (LV. 5) -->
             <div class="stat-row">
               <div class="stat-info">
                 <span class="stat-name">C++ / CORE LOGIC</span>
@@ -265,7 +303,7 @@
               </div>
             </div>
 
-            <!-- UI/UX (LV. 15 / 20 = 75%) -->
+            <!-- UI/UX (LV. 10) -->
             <div class="stat-row">
               <div class="stat-info">
                 <span class="stat-name">UI / UX &amp; VISUAL DESIGN</span>
@@ -282,7 +320,8 @@
       </div>
     </div>
   </section>
-     <!-- ==========================================================================
+
+  <!-- ==========================================================================
        Module C: Resume & Contact Modal
        ========================================================================== -->
   <section class="module-overlay" id="modal-contact" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contact-title">
@@ -315,14 +354,13 @@
               <h5 class="item-name">Ale's Resume</h5>
               <p class="item-description">
                 A record of mostly work experience and skills, for now. I'm just getting started and I plan to update this resume with
-                projects, proficiencies, academic milestones, certificates and anything else that can aid in my growth. Time will nurture 
+                projects, proficiencies, academic milestones, certificates and anything else that can aid in my growth. Time will nurture
               </p>
               <div class="item-metadata">
                 <span>FORMAT: PDF</span>
               </div>
             </div>
-            <!-- Replace 'resume.pdf' with your actual resume file path later -->
-            <a href="Alejandro_Cardenas_Resume.pdf" class="btn-action primary btn-download" target="_blank" download="Alejandro_Cardenas_Resume.pdf">
+            <a href="Alejandro_Cardenas_Resume.pdf" class="btn-action primary btn-download" target="_blank" rel="noopener noreferrer" download="Alejandro_Cardenas_Resume.pdf">
               DOWNLOAD PDF
             </a>
           </div>
@@ -368,9 +406,8 @@
       </div>
     </div>
   </section>
-     
-     <!-- script last so html loads first -->
-     <script src="script.js"></script>
 
+  <!-- Script placed at the end so HTML elements load first -->
+  <script src="script.js"></script>
 </body>
 </html>
