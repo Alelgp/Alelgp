@@ -211,6 +211,110 @@ function playCloseSound() {
   }
 }
 
+/**
+ * Cinematic screen-slash whoosh and impact sound for All-Out Attack transitions
+ */
+/**
+ * Cinematic white-noise rushing whoosh and heavy impact sound for All-Out Attack transitions
+ */
+function playSlashSound() {
+  try {
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') ctx.resume();
+
+    const now = ctx.currentTime;
+
+    // 1. Cinematic Rushing White-Noise Whoosh (Air displacement)
+    const bufferSize = ctx.sampleRate * 0.32; // 320ms duration
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1; // Generate white noise
+    }
+
+    const whiteNoise = ctx.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+
+    // Bandpass filter to sculpt the noise into a roaring whoosh sweep
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(400, now);
+    filter.frequency.exponentialRampToValueAtTime(3200, now + 0.16);
+    filter.frequency.exponentialRampToValueAtTime(300, now + 0.32);
+    filter.Q.value = 1.5;
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.01, now);
+    noiseGain.gain.linearRampToValueAtTime(0.22, now + 0.14); // Rushes up
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.32); // Fades out
+
+    whiteNoise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+
+    whiteNoise.start(now);
+    whiteNoise.stop(now + 0.32);
+
+    // 2. Heavy Cinematic Impact Thud (Triggered at 350ms when blades slam shut)
+    const impactTime = now + 0.35;
+    const impactOsc = ctx.createOscillator();
+    const impactGain = ctx.createGain();
+    impactOsc.type = 'sine';
+    impactOsc.frequency.setValueAtTime(140, impactTime);
+    impactOsc.frequency.exponentialRampToValueAtTime(35, impactTime + 0.2);
+
+    impactGain.gain.setValueAtTime(0.15, impactTime);
+    impactGain.gain.exponentialRampToValueAtTime(0.0001, impactTime + 0.2);
+
+    impactOsc.connect(impactGain);
+    impactGain.connect(ctx.destination);
+    impactOsc.start(impactTime);
+    impactOsc.stop(impactTime + 0.2);
+  } catch (e) {}
+}
+
+/**
+ * Procedural Persona 5 "Phantom Snap" sound for background/empty clicks
+ */
+function playEmptyClickSound() {
+  try {
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') ctx.resume();
+
+    const now = ctx.currentTime;
+
+    // Punchy Comic Impact Thump
+    const punchOsc = ctx.createOscillator();
+    const punchGain = ctx.createGain();
+    punchOsc.type = 'triangle';
+    punchOsc.frequency.setValueAtTime(320, now);
+    punchOsc.frequency.exponentialRampToValueAtTime(75, now + 0.055);
+
+    punchGain.gain.setValueAtTime(0.05, now);
+    punchGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
+
+    punchOsc.connect(punchGain);
+    punchGain.connect(ctx.destination);
+    punchOsc.start(now);
+    punchOsc.stop(now + 0.055);
+
+    // Crisp Stylus Snap
+    const snapOsc = ctx.createOscillator();
+    const snapGain = ctx.createGain();
+    snapOsc.type = 'sine';
+    snapOsc.frequency.setValueAtTime(1800, now);
+    snapOsc.frequency.exponentialRampToValueAtTime(650, now + 0.025);
+
+    snapGain.gain.setValueAtTime(0.025, now);
+    snapGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+
+    snapOsc.connect(snapGain);
+    snapGain.connect(ctx.destination);
+    snapOsc.start(now);
+    snapOsc.stop(now + 0.025);
+  } catch (e) {}
+}
+
 // ==========================================================================
 // 1. Ransom-Note Cutout Typography Generator
 // ==========================================================================
@@ -379,6 +483,7 @@ pods.forEach((pod) => {
     setTimeout(() => {
       if (slashText) slashText.textContent = impactCallout;
       if (slashOverlay) slashOverlay.classList.add('is-slashing');
+      playSlashSound();
     }, 380);
 
     // Stage 2: Open target modal behind the slash & retract blades at 780ms
@@ -483,60 +588,11 @@ cardLinks.forEach((link) => {
 // 7. Persona 5 Star Burst Click FX, Cursor Trail & Smart Audio Guard
 // ==========================================================================
 
-// Create a dedicated overlay layer for particles so they never affect layout
 const particleLayer = document.createElement('div');
 particleLayer.className = 'p5-particle-container';
 particleLayer.setAttribute('aria-hidden', 'true');
 document.body.appendChild(particleLayer);
 
-/**
- * Procedural Persona 5 "Phantom Snap" sound for empty/background clicks.
- * Uses a punchy low-mid triangle thump + crisp high-frequency transient tick.
- */
-function playEmptyClickSound() {
-  try {
-    const ctx = getAudioContext();
-    if (ctx.state === 'suspended') ctx.resume();
-
-    const now = ctx.currentTime;
-
-    // 1. Punchy Comic Impact Thump (320Hz -> 75Hz rapid drop)
-    const punchOsc = ctx.createOscillator();
-    const punchGain = ctx.createGain();
-    punchOsc.type = 'triangle';
-    punchOsc.frequency.setValueAtTime(320, now);
-    punchOsc.frequency.exponentialRampToValueAtTime(75, now + 0.055);
-
-    punchGain.gain.setValueAtTime(0.05, now);
-    punchGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
-
-    punchOsc.connect(punchGain);
-    punchGain.connect(ctx.destination);
-    punchOsc.start(now);
-    punchOsc.stop(now + 0.055);
-
-    // 2. Crisp Stylus Snap (1800Hz -> 650Hz in 25ms)
-    const snapOsc = ctx.createOscillator();
-    const snapGain = ctx.createGain();
-    snapOsc.type = 'sine';
-    snapOsc.frequency.setValueAtTime(1800, now);
-    snapOsc.frequency.exponentialRampToValueAtTime(650, now + 0.025);
-
-    snapGain.gain.setValueAtTime(0.025, now);
-    snapGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
-
-    snapOsc.connect(snapGain);
-    snapGain.connect(ctx.destination);
-    snapOsc.start(now);
-    snapOsc.stop(now + 0.025);
-  } catch (e) {
-    // Graceful fallback
-  }
-}
-
-/**
- * Generates an inline SVG 5-point asymmetric comic star
- */
 function createStarSVG(fillColor, strokeColor, size) {
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
@@ -546,7 +602,6 @@ function createStarSVG(fillColor, strokeColor, size) {
   svg.style.overflow = 'visible';
 
   const polygon = document.createElementNS(svgNS, 'polygon');
-  // Jagged P5-style star coordinates
   polygon.setAttribute('points', '50,2 64,36 98,36 70,57 81,95 50,73 19,95 30,57 2,36 36,36');
   polygon.setAttribute('fill', fillColor);
   polygon.setAttribute('stroke', strokeColor);
@@ -556,11 +611,7 @@ function createStarSVG(fillColor, strokeColor, size) {
   return svg;
 }
 
-/**
- * Spawns a burst of comic stars and an angled impact ring at (x, y)
- */
 function spawnClickStarBurst(x, y) {
-  // 1. Spawn angled impact ring
   const ring = document.createElement('div');
   ring.className = 'p5-click-ring';
   ring.style.left = `${x}px`;
@@ -568,11 +619,10 @@ function spawnClickStarBurst(x, y) {
   particleLayer.appendChild(ring);
   setTimeout(() => ring.remove(), 400);
 
-  // 2. Spawn 6 comic-book stars shooting outward
   const palette = [
-    { fill: '#e60012', stroke: '#ffffff' }, // Crimson with White ink
-    { fill: '#ffffff', stroke: '#000000' }, // White with Black ink
-    { fill: '#000000', stroke: '#e60012' }  // Black with Crimson ink
+    { fill: '#e60012', stroke: '#ffffff' },
+    { fill: '#ffffff', stroke: '#000000' },
+    { fill: '#000000', stroke: '#e60012' }
   ];
 
   const starCount = 6;
@@ -582,7 +632,6 @@ function spawnClickStarBurst(x, y) {
     wrapper.style.left = `${x}px`;
     wrapper.style.top = `${y}px`;
 
-    // Calculate radial trajectory with slight randomness
     const angle = ((Math.PI * 2) / starCount) * i + (Math.random() * 0.5 - 0.25);
     const distance = 38 + Math.random() * 48;
     const tx = Math.cos(angle) * distance;
@@ -604,21 +653,16 @@ function spawnClickStarBurst(x, y) {
   }
 }
 
-/**
- * Spawns a single miniature comic star along the cursor path
- */
 let lastTrailX = 0;
 let lastTrailY = 0;
 
 window.addEventListener('pointermove', (e) => {
-  // Only spawn on mouse movement (ignore touch-drag to keep mobile clean)
   if (e.pointerType === 'touch') return;
 
   const dx = e.clientX - lastTrailX;
   const dy = e.clientY - lastTrailY;
   const dist = Math.hypot(dx, dy);
 
-  // Throttle: only spawn a trail star every 36 pixels of cursor travel
   if (dist < 36) return;
 
   lastTrailX = e.clientX;
@@ -630,7 +674,6 @@ window.addEventListener('pointermove', (e) => {
   trailStar.style.top = `${e.clientY}px`;
   trailStar.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
 
-  // Alternate between white and crimson mini stars
   const isRed = Math.random() > 0.5;
   trailStar.appendChild(
     createStarSVG(isRed ? '#e60012' : '#ffffff', '#000000', 14)
@@ -640,21 +683,13 @@ window.addEventListener('pointermove', (e) => {
   setTimeout(() => trailStar.remove(), 360);
 });
 
-/**
- * Global Click Listener with Smart Audio Collision Guard
- */
 window.addEventListener('click', (e) => {
-  // Always spawn the visual star burst where the user clicked
   spawnClickStarBurst(e.clientX, e.clientY);
 
-  // SMART AUDIO GUARD:
-  // Check if the clicked element (or any parent above it) is an interactive trigger
-  // that already plays its own sound effect.
   const hasOwnAudio = e.target.closest(
     '.starter-pod, .sheet-close-btn, .overlay-backdrop, .module-overlay a, button, a'
   );
 
-  // Only play the P5 empty-click snap if no other audio is triggered!
   if (!hasOwnAudio) {
     playEmptyClickSound();
   }
